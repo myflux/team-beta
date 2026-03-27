@@ -1,8 +1,8 @@
 team_name: "Team Beta"
 
-   team_lead:     "@scoheb"
-   product_owner: "@scoheb"
-   eng_manager:   "@scoheb"
+team_lead:     "@scoheb"
+product_owner: "@scoheb"
+eng_manager:   "@scoheb"
 
-   architect:     "@scoheb"
-   director:      "@scoheb"
+architect:     "@scoheb"
+director:      "@scoheb"
