@@ -1,0 +1,21 @@
+name: PR Approval Gate
+
+on:
+  pull_request:
+    types: [opened, ready_for_review]
+    branches:
+      - main
+
+jobs:
+  trigger-approval:
+    if: github.event.pull_request.draft == false
+    name: Trigger Approval Process
+    uses: myflux/.github/.github/workflows/approval-process.yml@main
+    with:
+      pr_number: ${{ github.event.pull_request.number }}
+      pr_title:  ${{ github.event.pull_request.title }}
+      pr_url:    ${{ github.event.pull_request.html_url }}
+      pr_author: ${{ github.event.pull_request.user.login }}
+      repo_name: ${{ github.repository }}
+    secrets:
+      ORG_APPROVAL_TOKEN: ${{ secrets.ORG_APPROVAL_TOKEN }}
