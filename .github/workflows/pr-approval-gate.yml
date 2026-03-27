@@ -1,14 +1,13 @@
 name: PR Approval Gate
 
 on:
-  pull_request:
-    types: [opened, ready_for_review]
-    branches:
-      - main
+  pull_request_review:
+    types: [submitted]
 
 jobs:
   trigger-approval:
-    if: github.event.pull_request.draft == false
+    # TODO: Remove 'commented' after testing - should only trigger on 'approved'
+    if: github.event.review.state == 'approved' || github.event.review.state == 'commented'
     name: Trigger Approval Process
     uses: myflux/.github/.github/workflows/approval-process.yml@main
     with:
@@ -16,6 +15,7 @@ jobs:
       pr_title:  ${{ github.event.pull_request.title }}
       pr_url:    ${{ github.event.pull_request.html_url }}
       pr_author: ${{ github.event.pull_request.user.login }}
+      pr_reviewer: ${{ github.event.review.user.login }}
       repo_name: ${{ github.repository }}
     secrets:
       ORG_APPROVAL_TOKEN: ${{ secrets.ORG_APPROVAL_TOKEN }}
